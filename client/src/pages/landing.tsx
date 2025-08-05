@@ -1,6 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, BarChart3, Trophy, Calendar } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Link } from "wouter";
+import { CheckCircle, Target, BarChart3, Users, Clock, Star, Trophy, Calendar } from "lucide-react";
 
 export default function Landing() {
   return (
@@ -81,7 +83,7 @@ export default function Landing() {
           <Card className="text-center">
             <CardHeader>
               <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Trophy className="w-6 h-6 text-purple-600" />
+                <Users className="w-6 h-6 text-purple-600" />
               </div>
               <CardTitle className="text-lg">Team Leaderboards</CardTitle>
             </CardHeader>
@@ -151,10 +153,18 @@ export default function Landing() {
           
           <div className="mt-6 pt-6 border-t border-slate-100">
             <div className="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-slate-600">
-              <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-primary transition-colors">Contact Support</a>
-              <a href="#" className="hover:text-primary transition-colors">Help Center</a>
+              <Link href="/privacy-policy">
+                <a className="hover:text-primary transition-colors">Privacy Policy</a>
+              </Link>
+              <Link href="/terms-of-service">
+                <a className="hover:text-primary transition-colors">Terms of Service</a>
+              </Link>
+              <Link href="/contact-support">
+                <a className="hover:text-primary transition-colors">Contact Support</a>
+              </Link>
+              <Link href="/help-center">
+                <a className="hover:text-primary transition-colors">Help Center</a>
+              </Link>
             </div>
           </div>
         </div>

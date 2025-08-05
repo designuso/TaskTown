@@ -12,6 +12,10 @@ import Categories from "@/pages/categories";
 import Calendar from "@/pages/calendar";
 import Analytics from "@/pages/analytics";
 import Settings from "@/pages/settings";
+import PrivacyPolicy from "@/pages/privacy-policy";
+import TermsOfService from "@/pages/terms-of-service";
+import ContactSupport from "@/pages/contact-support";
+import HelpCenter from "@/pages/help-center";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -19,7 +23,13 @@ function Router() {
   return (
     <Switch>
       {isLoading || !isAuthenticated ? (
-        <Route path="/" component={Landing} />
+        <>
+          <Route path="/" component={Landing} />
+          <Route path="/privacy-policy" component={PrivacyPolicy} />
+          <Route path="/terms-of-service" component={TermsOfService} />
+          <Route path="/contact-support" component={ContactSupport} />
+          <Route path="/help-center" component={HelpCenter} />
+        </>
       ) : (
         <>
           <Route path="/" component={Dashboard} />
@@ -28,6 +38,10 @@ function Router() {
           <Route path="/calendar" component={Calendar} />
           <Route path="/analytics" component={Analytics} />
           <Route path="/settings" component={Settings} />
+          <Route path="/privacy-policy" component={PrivacyPolicy} />
+          <Route path="/terms-of-service" component={TermsOfService} />
+          <Route path="/contact-support" component={ContactSupport} />
+          <Route path="/help-center" component={HelpCenter} />
         </>
       )}
       <Route component={NotFound} />
