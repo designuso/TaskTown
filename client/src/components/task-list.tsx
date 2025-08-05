@@ -89,12 +89,12 @@ export default function TaskList() {
     }
   };
 
-  const isOverdue = (dueDate: string | null, status: string) => {
+  const isOverdue = (dueDate: string | Date | null, status: string) => {
     if (!dueDate || status === "completed") return false;
     return new Date(dueDate) < new Date();
   };
 
-  const formatDueDate = (dueDate: string | null, status: string) => {
+  const formatDueDate = (dueDate: string | Date | null, status: string) => {
     if (!dueDate) return "No due time";
     if (status === "completed") return `Completed at ${new Date(dueDate).toLocaleTimeString()}`;
     
@@ -154,7 +154,7 @@ export default function TaskList() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Categories</SelectItem>
-                  {categories?.map((category: any) => (
+                  {(categories as any[])?.map((category: any) => (
                     <SelectItem key={category.id} value={category.id}>
                       {category.name}
                     </SelectItem>

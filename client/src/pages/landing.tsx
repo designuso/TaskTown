@@ -127,6 +127,38 @@ export default function Landing() {
           </Button>
         </div>
       </main>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-slate-200 mt-16">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="flex items-center space-x-3 mb-4 md:mb-0">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <CheckCircle className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold text-slate-900">TaskFlow</span>
+            </div>
+            
+            <div className="text-center md:text-right">
+              <p className="text-slate-600 text-sm">
+                © {new Date().getFullYear()} TaskFlow. All rights reserved.
+              </p>
+              <p className="text-slate-500 text-xs mt-1">
+                Built with ❤️ for productivity enthusiasts
+              </p>
+            </div>
+          </div>
+          
+          <div className="mt-6 pt-6 border-t border-slate-100">
+            <div className="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-slate-600">
+              <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-primary transition-colors">Contact Support</a>
+              <a href="#" className="hover:text-primary transition-colors">Help Center</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -216,7 +216,7 @@ export default function TaskModal({ open, onOpenChange }: TaskModalProps) {
                           </FormControl>
                           <SelectContent>
                             <SelectItem value="">No Category</SelectItem>
-                            {categories?.map((category: any) => (
+                            {(categories as any[])?.map((category: any) => (
                               <SelectItem key={category.id} value={category.id}>
                                 {category.name}
                               </SelectItem>

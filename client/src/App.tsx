@@ -7,6 +7,11 @@ import { useAuth } from "@/hooks/useAuth";
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/landing";
 import Dashboard from "@/pages/dashboard";
+import AddTask from "@/pages/add-task";
+import Categories from "@/pages/categories";
+import Calendar from "@/pages/calendar";
+import Analytics from "@/pages/analytics";
+import Settings from "@/pages/settings";
 
 function Router() {
   const { isAuthenticated, isLoading } = useAuth();
@@ -18,6 +23,11 @@ function Router() {
       ) : (
         <>
           <Route path="/" component={Dashboard} />
+          <Route path="/add-task" component={AddTask} />
+          <Route path="/categories" component={Categories} />
+          <Route path="/calendar" component={Calendar} />
+          <Route path="/analytics" component={Analytics} />
+          <Route path="/settings" component={Settings} />
         </>
       )}
       <Route component={NotFound} />
