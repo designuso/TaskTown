@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import { CheckCircle, Target, BarChart3, Users, Clock, Star, Trophy, Calendar } from "lucide-react";
+import Footer from "@/components/footer";
 
 export default function Landing() {
   return (

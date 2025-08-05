@@ -34,6 +34,7 @@ export const users = pgTable("users", {
   firstName: varchar("first_name"),
   lastName: varchar("last_name"),
   profileImageUrl: varchar("profile_image_url"),
+  whatsappNumber: varchar("whatsapp_number"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -132,6 +133,8 @@ export const insertTaskSchema = createInsertSchema(tasks).omit({
   createdAt: true,
   updatedAt: true,
   completedAt: true,
+}).extend({
+  dueDate: z.string().optional().transform((val) => val ? new Date(val) : undefined),
 });
 
 export const insertPerformanceStatsSchema = createInsertSchema(performanceStats).omit({

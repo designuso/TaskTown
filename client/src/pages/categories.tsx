@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Plus, FolderOpen, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import Footer from "@/components/footer";
 import { isUnauthorizedError } from "@/lib/authUtils";
 import type { Category } from "@shared/schema";
 

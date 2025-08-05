@@ -8,6 +8,7 @@ import TaskList from "@/components/task-list";
 import PerformanceChart from "@/components/performance-chart";
 import Leaderboard from "@/components/leaderboard";
 import QuickActions from "@/components/quick-actions";
+import Footer from "@/components/footer";
 
 export default function Dashboard() {
   const { toast } = useToast();
@@ -57,6 +58,7 @@ export default function Dashboard() {
             </div>
           </div>
         </main>
+        <Footer />
       </div>
     </div>
   );

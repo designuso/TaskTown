@@ -9,16 +9,56 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, User, Bell, Palette, Shield, Download } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
+import Footer from "@/components/footer";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function Settings() {
   const { user } = useAuth();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+  
+  // Profile state
+  const [profileData, setProfileData] = useState({
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
+    email: user?.email || "",
+    whatsappNumber: user?.whatsappNumber || "",
+  });
   
   // Settings state
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [reminderNotifications, setReminderNotifications] = useState(true);
   const [autoBackup, setAutoBackup] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+
+  // Profile update mutation
+  const updateProfileMutation = useMutation({
+    mutationFn: async (data: typeof profileData) => {
+      return await apiRequest(`/api/users/profile`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Profile updated!",
+        description: "Your profile information has been saved successfully.",
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to update profile. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleSaveProfile = () => {
+    updateProfileMutation.mutate(profileData);
+  };
 
   const handleSaveSettings = () => {
     toast({
@@ -76,14 +116,30 @@ export default function Settings() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
+              <div className="flex items-center space-x-4 mb-4">
+                {user?.profileImageUrl && (
+                  <img 
+                    src={user.profileImageUrl} 
+                    alt="Profile" 
+                    className="w-16 h-16 rounded-full object-cover"
+                  />
+                )}
+                <div>
+                  <h3 className="font-medium text-slate-900">{getUserDisplayName()}</h3>
+                  <p className="text-sm text-slate-600">{user?.email}</p>
+                </div>
+              </div>
+              
+              <Separator />
+              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="firstName">First Name</Label>
                   <Input
                     id="firstName"
-                    value={user?.firstName || ""}
+                    value={profileData.firstName}
+                    onChange={(e) => setProfileData(prev => ({ ...prev, firstName: e.target.value }))}
                     placeholder="Enter your first name"
-                    disabled
                     data-testid="input-first-name"
                   />
                 </div>
@@ -91,24 +147,46 @@ export default function Settings() {
                   <Label htmlFor="lastName">Last Name</Label>
                   <Input
                     id="lastName"
-                    value={user?.lastName || ""}
+                    value={profileData.lastName}
+                    onChange={(e) => setProfileData(prev => ({ ...prev, lastName: e.target.value }))}
                     placeholder="Enter your last name"
-                    disabled
                     data-testid="input-last-name"
                   />
                 </div>
               </div>
+              
               <div>
                 <Label htmlFor="email">Email Address</Label>
                 <Input
                   id="email"
                   type="email"
-                  value={user?.email || ""}
+                  value={profileData.email}
+                  onChange={(e) => setProfileData(prev => ({ ...prev, email: e.target.value }))}
                   placeholder="Enter your email"
-                  disabled
                   data-testid="input-email"
                 />
               </div>
+              
+              <div>
+                <Label htmlFor="whatsapp">WhatsApp Number</Label>
+                <Input
+                  id="whatsapp"
+                  type="tel"
+                  value={profileData.whatsappNumber}
+                  onChange={(e) => setProfileData(prev => ({ ...prev, whatsappNumber: e.target.value }))}
+                  placeholder="Enter your WhatsApp number (e.g., +1234567890)"
+                  data-testid="input-whatsapp"
+                />
+              </div>
+              
+              <Button 
+                onClick={handleSaveProfile}
+                disabled={updateProfileMutation.isPending}
+                data-testid="button-save-profile"
+                className="w-full"
+              >
+                {updateProfileMutation.isPending ? "Saving..." : "Save Profile"}
+              </Button>
               <p className="text-sm text-slate-600">
                 Profile information is managed through your authentication provider.
               </p>
@@ -241,6 +319,7 @@ export default function Settings() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

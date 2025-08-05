@@ -8,6 +8,7 @@ import { ArrowLeft, BarChart3, TrendingUp, Download, Calendar } from "lucide-rea
 import PerformanceChart from "@/components/performance-chart";
 import Leaderboard from "@/components/leaderboard";
 import { useToast } from "@/hooks/use-toast";
+import Footer from "@/components/footer";
 
 export default function Analytics() {
   const [timeRange, setTimeRange] = useState("7");
@@ -213,6 +214,7 @@ export default function Analytics() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

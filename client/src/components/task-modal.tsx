@@ -70,7 +70,10 @@ export default function TaskModal({ open, onOpenChange }: TaskModalProps) {
         dueDate: data.dueDate ? new Date(data.dueDate).toISOString() : null,
         categoryId: data.categoryId || null,
       };
-      await apiRequest("POST", "/api/tasks", payload);
+      return await apiRequest("/api/tasks", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/tasks"] });
@@ -104,7 +107,10 @@ export default function TaskModal({ open, onOpenChange }: TaskModalProps) {
 
   const createCategoryMutation = useMutation({
     mutationFn: async (name: string) => {
-      await apiRequest("POST", "/api/categories", { name });
+      return await apiRequest("/api/categories", {
+        method: "POST", 
+        body: JSON.stringify({ name }),
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/categories"] });

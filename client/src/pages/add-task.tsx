@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import TaskModal from "@/components/task-modal";
+import Footer from "@/components/footer";
 
 export default function AddTask() {
   const [showModal, setShowModal] = useState(true);
@@ -34,6 +35,7 @@ export default function AddTask() {
           onOpenChange={handleModalClose}
         />
       </div>
+      <Footer />
     </div>
   );
 }
